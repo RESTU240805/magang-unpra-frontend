@@ -115,7 +115,7 @@
           <button v-for="(tab, i) in tabs" :key="i"
             @click="selectTab(i)"
             :class="['tab-btn', { active: activeTab === i }]">
-            <span class="tab-icon" v-html="tab.icon"></span>
+            <SafeHtml class="tab-icon" :html="tab.icon" />
             {{ tab.label }}
           </button>
         </div>
@@ -157,114 +157,9 @@
       </div>
     </section>
 
-     <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
+     <OfficeCards />
 
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-info-section">
-      <div class="footer-info-container">
-        <div class="footer-info-grid">
-
-          <div class="footer-info-col anim-item">
-            <p class="footer-about-text">
-              PT. Tanjungenim Lestari Pulp and Paper (PT. TEL), is one of the most exciting pulp mills in Indonesia today and the only pulp mill in the world to produce high-quality, bleached-hardwood Kraft pulp with 100 percent plantation grown Acacia mangium and Eucalyptus Pellita trees.
-            </p>
-          </div>
-
-          <div class="footer-info-col footer-logos-col anim-item">
-            <img src="/images/logosatu.jpeg" alt="Yayasan Pendidikan Tanjungenim Lestari - SMP, SD, PGTK Lematang Lestari" class="footer-logo-combined" />
-          </div>
-
-          <div class="footer-info-col footer-contact-col anim-item">
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kab. Muara Enim, Sumatera Selatan.</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>(+62) 713-324-150</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
-              <span>Mon-Fri: 8:00 – 17:00</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    
-  <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <FooterGlobal />
 
 
   </div>
@@ -273,6 +168,9 @@
 
 <script setup>
 import PageHero from '../../../components/PageHero.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
+import SafeHtml from '@/components/SafeHtml.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 import api from '../../../services/api'
 

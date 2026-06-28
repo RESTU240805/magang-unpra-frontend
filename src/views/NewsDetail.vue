@@ -45,8 +45,8 @@
       </div>
 
       <!-- Isi konten -->
-      <div class="prose prose-gray max-w-none text-gray-700 leading-relaxed text-[14px] md:text-[15px]"
-        v-html="news.content">
+      <div class="prose prose-gray max-w-none text-gray-700 leading-relaxed text-[14px] md:text-[15px]">
+        <SafeHtml :html="news.content" />
       </div>
 
       <!-- Galeri foto tambahan -->
@@ -78,6 +78,7 @@
 
 <script setup>
 import PageHero from '../components/PageHero.vue'
+import SafeHtml from '../components/SafeHtml.vue'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '../services/api'

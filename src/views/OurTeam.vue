@@ -107,14 +107,8 @@
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <OfficeCards />
+    <FooterGlobal />
   </div>
 </template>
 
@@ -122,6 +116,8 @@
 import { ref, computed, onMounted } from 'vue'
 import api from '../services/api'
 import PageHero from '../components/PageHero.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
 const members = ref([])

@@ -1,55 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-100 flex">
-    <aside class="w-64 bg-gray-950 text-white flex flex-col fixed h-full z-40">
-      <div class="p-6 border-b border-gray-800">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center font-black text-sm">T</div>
-          <div>
-            <p class="font-black text-sm">TELPP</p>
-            <p class="text-xs text-gray-500">Management Profile</p>
-          </div>
-        </div>
-      </div>
-      <nav class="flex-1 p-4 space-y-1">
-        <p class="text-xs text-gray-500 font-semibold tracking-widest mb-2 mt-2 px-2">OVERVIEW</p>
-        <RouterLink to="/admin/dashboard"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📊 Dashboard
-        </RouterLink>
-        <p class="text-xs text-gray-500 font-semibold tracking-widest mb-2 mt-4 px-2">CONTENT ENGINE</p>
-        <RouterLink to="/admin/news"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📰 Corporate News
-        </RouterLink>
-        <RouterLink to="/admin/product-page"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📦 Product
-        </RouterLink>
-        <RouterLink to="/admin/about"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium">
-          🏢 About Section
-        </RouterLink>
-        <RouterLink to="/admin/community"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          🌱 Community
-        </RouterLink>
-        <RouterLink to="/admin/team-members"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          👥 Our Team
-        </RouterLink>
-        <RouterLink to="/admin/our-company"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          🏛️ Our Company
-        </RouterLink>
-        <RouterLink to="/admin/menus"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📋 Menu
-        </RouterLink>
-      </nav>
-      <div class="p-4 border-t border-gray-800">
-        <button @click="logout" class="text-sm text-gray-400 hover:text-white transition px-2">→ Logout</button>
-      </div>
-    </aside>
+    <AdminSidebar active="about" />
 
     <main class="flex-1 ml-64 p-10">
       <div class="mb-8">
@@ -129,7 +80,7 @@
             <div class="flex-1">
               <p class="text-xs font-bold tracking-widest text-green-600 mb-2 uppercase">About TELPP</p>
               <h2 class="text-xl font-black text-gray-900 mb-3">{{ form.title || 'ABOUT TELPP' }}</h2>
-              <p class="text-sm text-gray-500 leading-relaxed" v-html="form.description || 'Deskripsi akan muncul di sini...'"></p>
+              <SafeHtml class="text-sm text-gray-500 leading-relaxed" :html="form.description || 'Deskripsi akan muncul di sini...'" />
             </div>
             <div class="w-64 h-44 rounded-xl overflow-hidden bg-gray-100 relative flex-shrink-0">
               <img v-if="form.image_path" :src="getImageUrl(form.image_path)" class="w-full h-full object-cover" />
@@ -147,8 +98,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
+import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
+import SafeHtml from '@/components/SafeHtml.vue'
 import RichTextEditor from '../../components/RichTextEditor.vue'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
@@ -221,12 +174,6 @@ const save = async () => {
   } catch (e) {
     showAlert('error', e.response?.data?.error || e.message || 'Gagal menyimpan')
   } finally { saving.value = false }
-}
-
-const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  router.push('/admin/login')
 }
 
 onMounted(() => {

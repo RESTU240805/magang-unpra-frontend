@@ -6,13 +6,14 @@
       title="Our Company"
       :subtitle="profile.title || 'PT Tanjungenim Lestari Pulp and Paper'"
       :breadcrumbs="[{ label: 'Home', to: '/' }, { label: 'Our Company' }]"
+      :imageUrl="getImageUrl(profile.hero_image)"
     />
 
     <!-- ABOUT -->
     <section v-if="profile.content" class="about-company">
       <div class="section-inner">
         <h2 class="about-company-title">{{ profile.title || 'About Us' }}</h2>
-        <div class="about-company-content" v-html="profile.content"></div>
+        <div class="about-company-content"><SafeHtml :html="profile.content" /></div>
       </div>
     </section>
 
@@ -60,7 +61,7 @@
           @mouseleave="v.hovered=false"
         >
           <div class="v-icon-wrap" :class="{hov: v.hovered}">
-            <div class="v-icon" v-html="v.svg"></div>
+            <SafeHtml class="v-icon" :html="v.svg" />
           </div>
           <h3 class="v-title">{{v.title}}</h3>
           <p class="v-sub">{{v.tagline}}</p>
@@ -123,14 +124,8 @@
       </div>
     </transition>
 
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <OfficeCards />
+    <FooterGlobal />
   </div>
 
   
@@ -140,6 +135,9 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import api from '@/services/api'
 import PageHero from '../components/PageHero.vue'
+import SafeHtml from '../components/SafeHtml.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
 

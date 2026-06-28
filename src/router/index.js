@@ -62,13 +62,43 @@ const router = createRouter({
     { path: '/admin/slider',                      redirect: '/admin/product-page' },
     { path: '/admin/product-page',                component: () => import('../views/admin/ProductManageView.vue') },
     { path: '/admin/about',                       component: () => import('../views/admin/AboutEditorView.vue') },
+    { path: '/admin/forest-management',           component: () => import('../views/admin/ForestManageView.vue') },
+    { path: '/admin/people-development',          component: () => import('../views/admin/PeopleDevelopmentManageView.vue') },
     { path: '/admin/team-members',                component: () => import('../views/admin/TeamMemberListView.vue') },
+    { path: '/admin/pulp-process',                component: () => import('../views/admin/PulpProcessManageView.vue') },
+    { path: '/admin/safety-health',               component: () => import('../views/admin/SafetyHealthManageView.vue') },
+    { path: '/admin/supply-chain',                component: () => import('../views/admin/SupplyChainManageView.vue') },
+    { path: '/admin/csr',                         component: () => import('../views/admin/CsrManageView.vue') },
     { path: '/product/:id', component: ProductDetail },
 
       { path: '/',            component: HomeView },
 
+      { path: '/admin/contact',                       component: () => import('../views/admin/ContactManageView.vue') },
       { path: '/admin/menus',                       component: () => import('../views/admin/MenuListView.vue') },
   ]
 })
 
 export default router
+
+function isTokenValid(token) {
+  if (!token) { return false }
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload.exp * 1000 > Date.now()
+  } catch (_e) {
+    return false
+  }
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
+    const token = localStorage.getItem('token')
+    if (!token || !isTokenValid(token)) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      next('/admin/login')
+      return
+    }
+  }
+  next()
+})

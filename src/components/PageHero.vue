@@ -1,6 +1,6 @@
 <template>
   <section class="page-hero">
-    <img src="/images/gedung.jpeg" alt="" class="page-hero-bg" />
+    <img :src="imageUrl || '/images/gedung.jpeg'" alt="" class="page-hero-bg" />
     <div class="page-hero-overlay"></div>
     <div class="page-hero-content">
       <nav v-if="breadcrumbs && breadcrumbs.length" class="page-hero-breadcrumb">
@@ -24,6 +24,7 @@ defineProps({
   title: { type: String, required: true },
   subtitle: { type: String, default: '' },
   breadcrumbs: { type: Array, default: () => [] },
+  imageUrl: { type: String, default: '' },
 })
 </script>
 

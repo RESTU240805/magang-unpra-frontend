@@ -49,10 +49,10 @@
               <div class="bg-green-50 border border-green-100 rounded-xl p-5 mb-4">
                 <div class="flex items-start gap-3 mb-3">
                   <span class="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></span>
-                  <p class="text-gray-700 text-sm font-semibold">To keep stable pulp production and its good quality which consist of:</p>
+                  <p class="text-gray-700 text-sm font-semibold">{{ strategyIntro }}</p>
                 </div>
                 <div class="grid grid-cols-2 gap-2 ml-5">
-                  <div v-for="(item, idx) in strategyItems" :key="item"
+                  <div v-for="(item, idx) in strategySubItems" :key="idx"
                     class="flex items-center gap-2 bg-white rounded-lg px-4 py-2.5 border border-green-100 shadow-sm stagger-item"
                     :style="`animation-delay:${idx * 0.1}s`">
                     <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
@@ -61,13 +61,11 @@
                 </div>
               </div>
               <div class="space-y-3">
-                <div class="flex items-start gap-3 bg-gray-50 rounded-xl px-5 py-3.5 border border-gray-100 stagger-item" style="animation-delay:0.4s">
+                <div v-for="(item, idx) in strategyExtraItems" :key="idx"
+                  class="flex items-start gap-3 bg-gray-50 rounded-xl px-5 py-3.5 border border-gray-100 stagger-item"
+                  :style="`animation-delay:${(0.4 + idx * 0.1)}s`">
                   <span class="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></span>
-                  <p class="text-gray-600 text-sm">To implement sound Industrial Relation, Corporate Social Responsibility.</p>
-                </div>
-                <div class="flex items-start gap-3 bg-gray-50 rounded-xl px-5 py-3.5 border border-gray-100 stagger-item" style="animation-delay:0.5s">
-                  <span class="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></span>
-                  <p class="text-gray-600 text-sm">To develop competent and motivated People.</p>
+                  <p class="text-gray-600 text-sm">{{ item }}</p>
                 </div>
               </div>
             </div>
@@ -143,7 +141,7 @@
                       <span class="w-1.5 h-1.5 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></span>
                       <p class="text-gray-500 text-sm leading-relaxed">{{ point }}</p>
                     </div>
-                    <div v-if="policy.procedures" class="mt-4 ml-4 border-l-2 border-green-200 pl-4 space-y-3">
+                    <div v-if="policy.procedures && policy.procedures.length" class="mt-4 ml-4 border-l-2 border-green-200 pl-4 space-y-3">
                       <p class="text-gray-600 text-xs font-semibold uppercase tracking-widest mb-2">Procedures for vendors not meeting labor standards:</p>
                       <div v-for="(proc, k) in policy.procedures" :key="k" class="flex gap-3 bg-green-50 rounded-lg p-3">
                         <span class="w-5 h-5 rounded-full bg-green-600 text-white font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">{{ k + 1 }}</span>
@@ -161,120 +159,18 @@
     </div>
   </section>
 
-  <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
+  <OfficeCards />
 
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-info-section">
-      <div class="footer-info-container">
-        <div class="footer-info-grid">
-
-          <div class="footer-info-col anim-item">
-            <p class="footer-about-text">
-              PT. Tanjungenim Lestari Pulp and Paper (PT. TEL), is one of the most exciting pulp mills in Indonesia today and the only pulp mill in the world to produce high-quality, bleached-hardwood Kraft pulp with 100 percent plantation grown Acacia mangium and Eucalyptus Pellita trees.
-            </p>
-          </div>
-
-          <div class="footer-info-col footer-logos-col anim-item">
-            <img src="/images/logosatu.jpeg" alt="Yayasan Pendidikan Tanjungenim Lestari - SMP, SD, PGTK Lematang Lestari" class="footer-logo-combined" />
-          </div>
-
-          <div class="footer-info-col footer-contact-col anim-item">
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kab. Muara Enim, Sumatera Selatan.</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>(+62) 713-324-150</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
-              <span>Mon-Fri: 8:00 – 17:00</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
- <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <FooterGlobal />
 
 </template>
 
 <script setup>
 import PageHero from '../../components/PageHero.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
 import { ref, onMounted } from 'vue'
+import api from '../../services/api'
 
 // ── Accordion ──
 const open = ref([true, false, false])
@@ -285,7 +181,48 @@ const fullTitle = 'Supply Chain Management'
 const displayedTitle = ref('')
 const typingDone = ref(false)
 
-onMounted(() => {
+// ── Data ──
+const strategyIntro = ref('')
+const strategySubItems = ref([])
+const strategyExtraItems = ref([])
+const sustainabilityItems = ref([])
+const policies = ref([])
+const loading = ref(true)
+const error = ref(null)
+
+const fetchData = async () => {
+  loading.value = true
+  error.value = null
+  try {
+    const [strategiesRes, sustRes, policiesRes] = await Promise.all([
+      api.get('/supply-chain-strategies'),
+      api.get('/supply-chain-sustainability-items'),
+      api.get('/supply-chain-policies'),
+    ])
+    const strategiesData = strategiesRes.data?.data || strategiesRes.data || []
+    const sustData = sustRes.data?.data || sustRes.data || []
+    const policiesData = policiesRes.data?.data || policiesRes.data || []
+    const allStrategies = strategiesData.map(s => s.description || s.title)
+    strategyIntro.value = allStrategies[0] || ''
+    strategySubItems.value = allStrategies.slice(1, 5)
+    strategyExtraItems.value = allStrategies.slice(5)
+    sustainabilityItems.value = sustData.map(i => i.description)
+    policies.value = policiesData.map(p => ({
+      title: p.title,
+      points: JSON.parse(p.points || '[]'),
+      procedures: p.procedures ? JSON.parse(p.procedures) : null,
+    }))
+  } catch (e) {
+    console.error('Failed to load supply chain data:', e)
+    error.value = 'Failed to load data'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(async () => {
+  await fetchData()
+
   // Typewriter
   let i = 0
   setTimeout(() => {
@@ -315,48 +252,6 @@ onMounted(() => {
   // Observe semua elemen .reveal dan .reveal-cta
   document.querySelectorAll('.reveal, .reveal-cta').forEach(el => observer.observe(el))
 })
-
-// ── Data ──
-const strategyItems = [
-  'Log Management',
-  'Procurement Management',
-  'Spare Part Management',
-  'Contract Management',
-]
-
-const sustainabilityItems = [
-  'PT.Tanjungenim Lestari Pulp and Paper has a principle stated in a motto "Fairness, Innovation & Harmony" which underlines all of its activities and transactions that occur to ensure the sustainability of business activities in harmony.',
-  'PT.Tanjungenim Lestari Pulp and Paper commits to uphold Good Corporate Governance (GCG) principles in its operation. To achieve this, the participation of all stakeholders including suppliers is very essential.',
-  'PT.Tanjungenim Lestari Pulp and Paper is part of Marubeni Group who already set its supply chain sustainability guidelines, supporting an environmentally friendly, healthy and sustainable society.',
-  'Cascading the Marubeni Group supply chain sustainability guidelines, PT.Tanjungenim Lestari Pulp and Paper asks for the understanding and cooperation of its business partners in observing the Guidelines.',
-]
-
-const policies = [
-  { title: 'Observance of Laws', points: ['Observe the laws of the countries where business is conducted and laws relating to business transactions.'] },
-  {
-    title: 'Respect for Human Rights',
-    points: [
-      'Respect human rights without discrimination, harassment of any kind, abuse or other inhumane treatment.',
-      'No child labor or forced labor.',
-      'Proper management of employees\' work hours, breaks and holidays.',
-      'Payment of the legally mandated minimum wage.',
-      'Respect for employees\' right to unionize.',
-    ],
-  },
-  { title: 'Conservation of the Environment', points: ['Recognize that climate change issues are important and respond appropriately.', 'Protect the natural environment.', 'Reduce environmental negative impact; prevent pollution.'] },
-  { title: 'Fair Transactions', points: ['Conduct fair transactions and do not inhibit free competition.', 'Prevent corruption; offer no bribes or illegal contributions.'] },
-  { title: 'Safety and Health', points: ['Ensure safe and healthy workplaces and maintain a good working environment.'] },
-  { title: 'Quality Control', points: ['Maintain the quality and safety of products and services.'] },
-  {
-    title: 'Information Disclosure',
-    points: ['Timely and appropriate disclosure of information.', 'The Marubeni Group has set out procedures for dealing with vendors that do not meet labor standards:'],
-    procedures: [
-      'When it comes to light that a vendor has failed to meet labor standards, we will ask the vendor to ascertain the facts and prepare a report on the background of the issue and improvement measures.',
-      'If we determine that improvement measures are insufficient, we will request that further measures be taken.',
-      'If, despite implementing steps (i) and (ii) above, the situation does not improve, we will examine whether to continue our relationship with the vendor.',
-    ],
-  },
-]
 </script>
 
 <style scoped>

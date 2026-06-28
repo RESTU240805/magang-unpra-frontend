@@ -87,123 +87,55 @@
     </div>
   </Teleport>
 
-  <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <OfficeCards />
     
-  <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+  <FooterGlobal />
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import PageHero from '../../../components/PageHero.vue'
-import { ref } from 'vue'
+import api from '../../../services/api'
+import OfficeCards from '@/components/OfficeCards.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
 
 const activePdf = ref(null)
 const activePdfName = ref('')
+const reports = ref([])
+const loading = ref(true)
 
-const reports = [
-  {
-    year: 2018,
-    quarters: [
-      { label: '1st Quarter', file: null },
-      { label: '2nd Quarter', file: null },
-      { label: '3rd Quarter', file: null },
-      { label: '4th Quarter', file: null },
-    ]
-  },
-  {
-    year: 2019,
-    quarters: [
-      { label: '1st Quarter', period: 'Jan – Mar 2019', file: 'CSRReport2019_1st_Quarter_Apr_Ju.pdf' },
-      { label: '2nd Quarter', file: null },
-      { label: '3rd Quarter', file: null },
-      { label: '4th Quarter', period: 'jan – mar 2019', file: 'CSR-Report-2019-4th-Quarter.pdf' },
-    ]
-  },
-  {
-    year: 2020,
-    quarters: [
-      { label: '1st Quarter', period: 'Apr – jun 2020', file: 'CSR-Report-2020-1st-Quarter-Apr-Jun-2020-W.pdf' },
-      { label: '2nd Quarter', period: 'Jul – Sep 2020', file: 'CSR-Report-2020-2nd-Quarter-Jul-Sep-2020-f.pdf' },
-      { label: '3rd Quarter', file: null },
-      { label: '4th Quarter', file: null },
-    ]
-  },
-]
+const quarterLabels = { 1: '1st Quarter', 2: '2nd Quarter', 3: '3rd Quarter', 4: '4th Quarter' }
 
-const openPdf = (filename) => {
-  activePdf.value = `/files/${filename}`
-  activePdfName.value = filename.replace(/[-_]/g, ' ').replace('.pdf', '')
+onMounted(async () => {
+  try {
+    const res = await api.get('/csr-reports')
+    const grouped = {}
+    for (const r of res.data.data) {
+      if (!grouped[r.year]) {
+        grouped[r.year] = { year: r.year, quarters: [] }
+      }
+      grouped[r.year].quarters.push({
+        label: quarterLabels[r.quarter] || `Quarter ${r.quarter}`,
+        period: r.period || '',
+        file: r.file_url || null,
+        _q: r.quarter,
+      })
+    }
+    for (const g of Object.values(grouped)) {
+      g.quarters.sort((a, b) => a._q - b._q)
+      g.quarters.forEach(q => delete q._q)
+    }
+    reports.value = Object.values(grouped).sort((a, b) => b.year - a.year)
+  } catch (e) {
+    console.error('Failed to load reports:', e)
+  } finally {
+    loading.value = false
+  }
+})
+
+const openPdf = (fileUrl) => {
+  activePdf.value = fileUrl.startsWith('http') ? fileUrl : `/${fileUrl}`
+  activePdfName.value = fileUrl.split('/').pop().replace(/[-_]/g, ' ').replace('.pdf', '')
 }
 </script>
 
@@ -274,6 +206,7 @@ const openPdf = (filename) => {
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.25rem;
+  flex-wrap: wrap;
 }
 .csrr-year-badge {
   flex-shrink: 0;
@@ -294,16 +227,21 @@ const openPdf = (filename) => {
   border-radius: 2px;
 }
 .csrr-year-label {
+  flex: 1;
+  min-width: 0;
   font-size: 1.1rem;
   font-weight: 800;
   color: #111827;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ─── QUARTER CARDS ──────────────────────────────────────── */
 .csrr-quarters {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
 }
 
@@ -311,9 +249,8 @@ const openPdf = (filename) => {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
-  padding: 1.25rem 1.25rem;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  padding: 1.25rem;
+  display: flex;
   align-items: center;
   gap: 0.875rem;
   min-height: 80px;
@@ -352,13 +289,15 @@ const openPdf = (filename) => {
   color: #9ca3af;
 }
 
-.csrr-card__info { min-width: 0; }
+.csrr-card__info { flex: 1; min-width: 0; }
 .csrr-card__quarter {
   font-size: 0.875rem;
   font-weight: 700;
   color: #111827;
   margin: 0 0 2px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .csrr-card__period {
   font-size: 0.72rem;

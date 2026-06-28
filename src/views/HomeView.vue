@@ -48,7 +48,7 @@
         <div class="about-text">
           <span class="eyebrow">About TELPP</span>
           <h2 class="text-2xl font-black text-gray-900 mb-4" v-if="about.title && about.title !== 'ABOUT TELPP'">{{ about.title }}</h2>
-          <div v-html="about.description"></div>
+          <SafeHtml :html="about.description" />
           
         </div>
 
@@ -224,42 +224,7 @@
       </div>
     </section>
 
-   <section class="offices reveal reveal-up">
-      <div class="section-heading">
-        <h2>Our Offices</h2>
-        <span class="heading-underline"></span>
-      </div>
-
-      <div class="offices-grid">
-        <div class="office-item reveal reveal-up" data-delay="0">
-          <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-          <h3 class="office-title">Jakarta</h3>
-          <p class="office-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-          <p class="office-phone">📞 +62 21 8665 6809 / 8665 6810</p>
-        </div>
-        
-        <div class="office-item reveal reveal-up" data-delay="150">
-          <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-          <h3 class="office-title">Mill Site</h3>
-          <p class="office-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-          <p class="office-phone">📞 (62) (713) 324150 – 324160</p>
-        </div>
-        
-        <div class="office-item reveal reveal-up" data-delay="300">
-          <img src="/images/palembang.jpeg" alt="Palembang Office" />
-          <h3 class="office-title">Palembang</h3>
-          <p class="office-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-          <p class="office-phone">📞 (62) (711) 382409</p>
-        </div>
-        
-        <div class="office-item reveal reveal-up" data-delay="450">
-          <img src="/images/tarahan.jpeg" alt="Tarahan Office" />
-          <h3 class="office-title">Tarahan</h3>
-          <p class="office-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-          <p class="office-phone">📞 (62) (721) 342311, 31318</p>
-        </div>
-      </div>
-    </section>
+    <OfficeCards />
 
   
 <section class="company-brief-section">
@@ -285,22 +250,7 @@
 
   </div>
 </section>
-    <footer class="site-footer">
-  <div class="footer-container">
-    
-    <div class="footer-left-content">
-      </div>
-<footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-</footer>
+    <FooterGlobal />
 
   </div>
 </template>
@@ -309,6 +259,9 @@
 import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import api from '../services/api'
+import SafeHtml from '../components/SafeHtml.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
 const fallbackImg = 'https://placehold.co/600x400/e8e8e8/999?text=News'
@@ -395,7 +348,13 @@ const fetchLatestNews = async () => {
         image: item.Images?.[0]?.image_url || item.thumbnail_path || '',
       }))
     await nextTick()
-    initScrollReveal()
+    if (revealObserver) {
+      document.querySelectorAll('.news .reveal').forEach((el) => {
+        if (!el.classList.contains('revealed')) {
+          revealObserver.observe(el)
+        }
+      })
+    }
   } catch (e) {
     console.error('Failed to fetch latest news:', e)
   }
@@ -515,8 +474,13 @@ onUnmounted(() => {
   clearInterval(interval)
 })
 
+let revealObserver = null
+
 function initScrollReveal() {
-  const observer = new IntersectionObserver(
+  if (revealObserver) {
+    revealObserver.disconnect()
+  }
+  revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -524,15 +488,25 @@ function initScrollReveal() {
           setTimeout(() => {
             entry.target.classList.add('revealed')
           }, Number(delay))
-          observer.unobserve(entry.target)
+          revealObserver.unobserve(entry.target)
         }
       })
     },
-    { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    { threshold: 0.01 }
   )
   nextTick(() => {
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    document.querySelectorAll('.reveal').forEach((el) => {
+      if (!el.classList.contains('revealed')) {
+        revealObserver.observe(el)
+      }
+    })
   })
+
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.revealed)').forEach((el, i) => {
+      setTimeout(() => el.classList.add('revealed'), i * 80)
+    })
+  }, 1500)
 }
 </script>
 

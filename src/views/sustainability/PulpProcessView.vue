@@ -1,4 +1,14 @@
 <template>
+  <div v-if="loading" class="flex items-center justify-center min-h-[60vh]">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+  </div>
+  <div v-else-if="error" class="flex items-center justify-center min-h-[60vh]">
+    <div class="text-center">
+      <p class="text-red-600 font-semibold mb-2">Failed to load data</p>
+      <p class="text-gray-500 text-sm">{{ error }}</p>
+    </div>
+  </div>
+  <template v-else>
   <PageHero
     title="Pulp Process"
     subtitle="Explore the complete industrial pulp production process from raw logs to finished bales."
@@ -76,9 +86,9 @@
             </svg>
           </button>
           <div v-show="section.open" class="px-6 py-5 bg-gray-50">
-            <img v-if="section.image" :src="section.image" :alt="section.title"
+            <img v-if="section.image_url" :src="section.image_url" :alt="section.title"
               class="w-full h-72 object-cover rounded-lg mb-4" />
-            <p class="text-gray-600 text-sm leading-relaxed">{{ section.desc }}</p>
+            <p class="text-gray-600 text-sm leading-relaxed">{{ section.description }}</p>
             <div v-if="section.details" class="mt-4 space-y-2">
               <div v-for="(detail, j) in section.details" :key="j"
                 class="flex items-start gap-3 text-sm">
@@ -122,15 +132,15 @@
       </div>
 
       <div class="bg-gray-50 rounded-xl overflow-hidden border border-gray-100 anim-item">
-        <img v-if="recoveryData[activeRecoveryTab].image"
-          :src="recoveryData[activeRecoveryTab].image"
+        <img v-if="recoveryData[activeRecoveryTab]?.image_url"
+          :src="recoveryData[activeRecoveryTab].image_url"
           :alt="recoveryData[activeRecoveryTab].title"
           class="w-full h-72 object-cover" />
         <div class="p-6">
-          <h3 class="text-lg font-bold text-gray-900 mb-3">{{ recoveryData[activeRecoveryTab].title }}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ recoveryData[activeRecoveryTab].desc }}</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">{{ recoveryData[activeRecoveryTab]?.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ recoveryData[activeRecoveryTab]?.description }}</p>
           <div class="grid grid-cols-2 gap-4">
-            <div v-for="(spec, j) in recoveryData[activeRecoveryTab].specs" :key="j"
+            <div v-for="(spec, j) in recoveryData[activeRecoveryTab]?.specs" :key="j"
               class="bg-white rounded-lg p-4 border border-gray-100">
               <div class="text-xs text-gray-400 mb-1">{{ spec.label }}</div>
               <div class="text-sm font-bold text-gray-800">{{ spec.value }}</div>
@@ -142,229 +152,52 @@
   
   </section>
 
-  <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
+  <OfficeCards />
 
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-info-section">
-      <div class="footer-info-container">
-        <div class="footer-info-grid">
-
-          <div class="footer-info-col anim-item">
-            <p class="footer-about-text">
-              PT. Tanjungenim Lestari Pulp and Paper (PT. TEL), is one of the most exciting pulp mills in Indonesia today and the only pulp mill in the world to produce high-quality, bleached-hardwood Kraft pulp with 100 percent plantation grown Acacia mangium and Eucalyptus Pellita trees.
-            </p>
-          </div>
-
-          <div class="footer-info-col footer-logos-col anim-item">
-            <img src="/images/logosatu.jpeg" alt="Yayasan Pendidikan Tanjungenim Lestari - SMP, SD, PGTK Lematang Lestari" class="footer-logo-combined" />
-          </div>
-
-          <div class="footer-info-col footer-contact-col anim-item">
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kab. Muara Enim, Sumatera Selatan.</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>(+62) 713-324-150</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
-              <span>Mon-Fri: 8:00 – 17:00</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <FooterGlobal />
+  </template>
 </template>
 
 <script setup>
 import PageHero from '../../components/PageHero.vue'
-import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
+import OfficeCards from '@/components/OfficeCards.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import PulpProcess3D from '@/components/PulpProcess3D.vue'
+import api from '../../services/api'
 
-const pulpSections = reactive([
-  {
-    title: 'Wood and Chip Handling',
-    open: true,
-    image: '/pulp proces/Chipping-Proses.jpg',
-    desc: 'Raw logs from sustainable industrial plantations (Acacia Mangium & Eucalyptus Pellita) are transported to the mill, stored in wet ponds, then processed through debarking and chipping.',
-    details: [
-      'Log Storage Ponds — logs kept wet to preserve fiber quality',
-      'Debarking Drum — rotary drum strips bark (bark used as biomass fuel)',
-      'Disk Chipper — reduces debarked logs into uniform 25mm chips',
-      'Chip Screening — separates oversized chips (rechipped) and fines (fuel)'
-    ]
-  },
-  {
-    title: 'Fiber Line',
-    open: false,
-    image: '/pulp proces/FiberLine.jpg',
-    desc: 'Wood chips are cooked under high pressure with white liquor to separate cellulose fibers from lignin, then washed and delignified.',
-    details: [
-      'Chip Bin & Digester — Kamyr continuous digester at 170\u00b0C with NaOH + Na\u2082S',
-      'Blow Tank — receives cooked pulp at atmospheric pressure',
-      'Brownstock Washing — multi-stage washers remove black liquor',
-      'O\u2082 Delignification — reduces kappa number 40-50% using oxygen'
-    ]
-  },
-  {
-    title: 'Pulp Machine',
-    open: false,
-    image: '/pulp proces/pulp-machine.jpg',
-    desc: 'The bleached pulp slurry is formed into sheets on a Fourdrinier wire, pressed, and steam-dried into market pulp.',
-    details: [
-      'Forming Section — diluted pulp (0.5-1% consistency) deposited on wire',
-      'Press Section — water removed by pressing between felt rolls',
-      'Dryer Section — steam-heated cylinders dry pulp to ~90% solids',
-      'Production capacity: 450,000 ADt/year (1,430 Adt/day)'
-    ]
-  },
-  {
-    title: 'Warehouse',
-    open: false,
-    image: '/pulp proces/IMG_6725.jpg',
-    desc: 'Finished pulp sheets are cut, stacked, and compressed into 250 kg bales wrapped in kraft liner for storage and export.',
-    details: [
-      'Bale Press — sheets compressed into 250 kg bales',
-      'Wrapping — bales wrapped in kraft liner for protection',
-      'Climate-controlled storage — temperature and humidity regulated',
-      'Conveyor belt to jetty — bales loaded onto cargo ships for export'
-    ]
-  }
-])
+const pulpSections = ref([])
+const recoveryData = ref([])
+const loading = ref(true)
+const error = ref(null)
 
 function togglePulpSection(index) {
-  pulpSections[index].open = !pulpSections[index].open
+  pulpSections.value[index].open = !pulpSections.value[index].open
 }
 
 const activeRecoveryTab = ref(0)
 const recoveryTabs = ['Evaporator', 'Recovery Boiler', 'Recausticizing', 'Lime Kiln']
 
-const recoveryData = [
-  {
-    title: 'Evaporator Plant (7-Effect)',
-    image: '/pulp proces/Epavorator.jpg',
-    desc: 'Multiple-effect evaporator concentrates weak black liquor from 15% to 72% dissolved solids for firing in the Recovery Boiler. The 7-effect system maximizes steam economy.',
-    specs: [
-      { label: 'Inlet Concentration', value: '15% Dissolved Solids' },
-      { label: 'Outlet Concentration', value: '72% Dissolved Solids' },
-      { label: 'Effect Stages', value: '7-Effect System' },
-      { label: 'Heat Source', value: 'Exhaust Steam from Boilers' }
-    ]
-  },
-  {
-    title: 'Recovery Boiler',
-    image: '/pulp proces/Recovery-Boiler.jpg',
-    desc: 'Burns concentrated black liquor (70% DS) to recover inorganic smelt and generate high-pressure steam. The smelt dissolves in green liquor for recausticizing.',
-    specs: [
-      { label: 'Design Capacity', value: '2,400 TDS/day' },
-      { label: 'Fuel', value: 'Concentrated Black Liquor' },
-      { label: 'Products', value: 'Smelt + High-Pressure Steam' },
-      { label: 'Steam Usage', value: 'Power Generation + Process' }
-    ]
-  },
-  {
-    title: 'Recausticizing Plant',
-    image: '/pulp proces/Recautisizing.jpg',
-    desc: 'Green liquor (Na\u2082CO\u2083 + Na\u2082S) is reacted with Ca(OH)\u2082 to regenerate White Liquor (NaOH + Na\u2082S) for the cooking cycle. Lime mud (CaCO\u2083) is sent to the lime kiln.',
-    specs: [
-      { label: 'Input', value: 'Green Liquor (Na\u2082CO\u2083 + Na\u2082S)' },
-      { label: 'Reagent', value: 'Ca(OH)\u2082 (Slaked Lime)' },
-      { label: 'Output', value: 'White Liquor (NaOH + Na\u2082S)' },
-      { label: 'By-product', value: 'Lime Mud (CaCO\u2083) \u2192 Kiln' }
-    ]
-  },
-  {
-    title: 'Lime Kiln',
-    image: '/pulp proces/Lime-Kiln.jpg',
-    desc: 'Rotary kiln (~150m) reburns CaCO\u2083 lime mud at 1000\u00b0C to regenerate CaO quicklime for the recausticizing cycle. Completes the chemical recovery loop.',
-    specs: [
-      { label: 'Length', value: '~150 meters' },
-      { label: 'Temperature', value: '1,000\u00b0C' },
-      { label: 'Input', value: 'Lime Mud (CaCO\u2083)' },
-      { label: 'Output', value: 'Quicklime (CaO) \u2192 Recausticizing' }
-    ]
-  }
-]
-
 let observer = null
 
 onMounted(async () => {
+  try {
+    loading.value = true
+    const [sectionsRes, recoveriesRes] = await Promise.all([
+      api.get('/pulp-process-sections'),
+      api.get('/pulp-process-recoveries')
+    ])
+    pulpSections.value = sectionsRes.data.data.map(s => ({ ...s, open: false }))
+    recoveryData.value = recoveriesRes.data.data.map(r => ({
+      ...r,
+      specs: typeof r.specs === 'string' ? JSON.parse(r.specs) : r.specs
+    }))
+  } catch (err) {
+    error.value = err.response?.data?.error || err.message || 'Failed to load data'
+  } finally {
+    loading.value = false
+  }
+
   await nextTick()
   observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

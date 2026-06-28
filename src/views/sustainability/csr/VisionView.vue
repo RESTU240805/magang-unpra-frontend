@@ -19,20 +19,8 @@
           </div>
           <div class="vision-intro__card-text">
             <h2 class="vision-intro__card-title">Corporate Social Responsibility</h2>
-            <p>
-              Corporate Social Responsibility is defined as sustainable commitment to business to act ethically,
-              operate legally and contribute to improving the economy while at the same time improving the quality
-              of life of employees and their families, local communities and society as a whole around the company.
-            </p>
-            <p>
-              The CSR program is an investment for companies for the growth and sustainability of the company and
-              is no longer considered as a cost center, but as a profit center. The CSR program is the company's
-              commitment to support the creation of sustainable development.
-            </p>
-            <p>
-              The implementation of CSR programs is one form of implementation of the concept of Good Corporate
-              Governance as a social and environmental responsibility as stipulated in the regulations / Law no.
-              40 of 2007 concerning Limited Liability Companies.
+            <p v-for="(paragraph, index) in corporateDescriptionParagraphs" :key="index">
+              {{ paragraph }}
             </p>
           </div>
         </div>
@@ -85,47 +73,19 @@
 
         <!-- Right content -->
         <div class="vision-objectives__content">
-          <div class="vision-objectives__block">
+          <div
+            v-for="(objective, index) in objectiveItems"
+            :key="index"
+            :class="['vision-objectives__block', { 'vision-objectives__block--highlight': index === objectiveItems.length - 1 }]"
+          >
             <div class="vision-objectives__block-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+                <template v-if="index === 0"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></template>
+                <template v-else-if="index === 1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></template>
+                <template v-else><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></template>
               </svg>
             </div>
-            <p>
-              The purpose of implementing the Corporate Social Responsibility (CSR) of PT. Tanjungenim Lestari Pulp
-              and Paper is not limited to fulfilling the Company's responsibilities as well as the form of
-              compliance with regulations only. Furthermore, a well-implemented and systematic CSR program can form
-              a harmonious, balanced relationship and support between the Company and the community in the surrounding.
-            </p>
-          </div>
-
-          <div class="vision-objectives__block">
-            <div class="vision-objectives__block-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-              </svg>
-            </div>
-            <p>
-              The company also believes that CSR programs are an important part that is inseparable from the
-              benchmark of business success, apart from the implementation of good management and operational
-              performance.
-            </p>
-          </div>
-
-          <div class="vision-objectives__block vision-objectives__block--highlight">
-            <div class="vision-objectives__block-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-            </div>
-            <p>
-              On this basis, through the implementation of the responsibilities contained in the vision, mission
-              and corporate values, the Company outlines CSR policies and programs that meet sustainability
-              standards, have integrity, uphold business ethics, and comply with laws and regulations that apply.
-              These standards are expected to create CSR programs that can have a positive, effective and targeted
-              impact, be able to empower the community's capabilities, and be sustainable in the long term.
-            </p>
+            <p>{{ objective }}</p>
           </div>
         </div>
       </div>
@@ -133,124 +93,41 @@
   </section>
 
 
-   <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
+   <OfficeCards />
 
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-info-section">
-      <div class="footer-info-container">
-        <div class="footer-info-grid">
-
-          <div class="footer-info-col anim-item">
-            <p class="footer-about-text">
-              PT. Tanjungenim Lestari Pulp and Paper (PT. TEL), is one of the most exciting pulp mills in Indonesia today and the only pulp mill in the world to produce high-quality, bleached-hardwood Kraft pulp with 100 percent plantation grown Acacia mangium and Eucalyptus Pellita trees.
-            </p>
-          </div>
-
-          <div class="footer-info-col footer-logos-col anim-item">
-            <img src="/images/logosatu.jpeg" alt="Yayasan Pendidikan Tanjungenim Lestari - SMP, SD, PGTK Lematang Lestari" class="footer-logo-combined" />
-          </div>
-
-          <div class="footer-info-col footer-contact-col anim-item">
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kab. Muara Enim, Sumatera Selatan.</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>(+62) 713-324-150</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
-              <span>Mon-Fri: 8:00 – 17:00</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <FooterGlobal />
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue'
 import PageHero from '../../../components/PageHero.vue'
-const strategyItems = [
-  'To implement sound industrial relations Corporate Social Responsibility (CSR) and Good Corporate Governance',
-  'To ensure a harmony industrial relations with stakeholders both internal and external',
-  'To strengthen the implementation of Good Corporate Governance (GCG) in accordance with prevailing regulations and laws',
-  'To do continuous Improvement Program (CIP) in each department',
-]
+import OfficeCards from '@/components/OfficeCards.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
+import api from '../../../services/api'
+
+const strategyItems = ref([])
+const corporateDescription = ref('')
+const objectives = ref('')
+const loading = ref(true)
+
+const corporateDescriptionParagraphs = computed(() => corporateDescription.value.split('\n').filter(p => p.trim()))
+const objectiveItems = computed(() => objectives.value.split('\n').filter(p => p.trim()))
+
+onMounted(async () => {
+  try {
+    const [contentRes, strategiesRes] = await Promise.all([
+      api.get('/csr-vision-content'),
+      api.get('/csr-vision-strategies'),
+    ])
+    corporateDescription.value = contentRes.data.data?.corporate_description || ''
+    objectives.value = contentRes.data.data?.objectives || ''
+    strategyItems.value = strategiesRes.data.data.map(s => s.description)
+  } catch (e) {
+    console.error('Failed to load CSR vision data:', e)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <style scoped>

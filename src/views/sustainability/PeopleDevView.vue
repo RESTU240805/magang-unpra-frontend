@@ -32,18 +32,7 @@
     <div class="max-w-5xl mx-auto px-10">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-12">
 
-        <div class="col-span-3 space-y-4 text-gray-500 text-sm leading-relaxed anim-slide-right">
-          <p>
-            People development is carried out in order to prepare the best talent to be able to show the
-            best performance and to achieve the business targets they carry. Talking about business is not
-            only about running but also how they manage the business even more and sustain it in the future.
-          </p>
-          <p>
-            PT Tanjungenim Lestari Pulp and Paper are committed to developing competent, motivated and
-            integrated information systems to achieve a competitive organization. The commitment is realized
-            in several activities and achievements as follows:
-          </p>
-        </div>
+        <SafeHtml class="col-span-3 space-y-4 text-gray-500 text-sm leading-relaxed anim-slide-right" :html="description" />
 
         <div class="col-span-2 bg-green-50 border border-green-100 rounded-2xl p-6 flex flex-col justify-center anim-slide-left">
           <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center mb-4">
@@ -111,7 +100,7 @@
         <img
           v-for="(slide, i) in slides"
           :key="i"
-          :src="slide.url"
+          :src="slide.url || getImageUrl(slide.image_url)"
           :alt="slide.caption"
           class="absolute inset-0 w-full h-full object-cover"
           :style="{ opacity: activeSlide === i ? 1 : 0, transition: 'opacity 0.8s ease-in-out' }"
@@ -119,7 +108,7 @@
 
         <!-- Caption -->
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-          <p class="text-white text-sm font-semibold">{{ slides[activeSlide].caption }}</p>
+          <p class="text-white text-sm font-semibold">{{ slides[activeSlide]?.caption }}</p>
           <p class="text-gray-300 text-xs mt-1">{{ activeSlide + 1 }} / {{ slides.length }}</p>
         </div>
 
@@ -148,125 +137,26 @@
     </div>
   </section>
 
-  <section class="contact-section">
-      <div class="contact-container">
-        <div class="contact-header anim-item">
-          <span class="contact-label">GET IN TOUCH</span>
-          <h2 class="contact-title">Our Offices</h2>
-        </div>
+  <OfficeCards />
 
-        <div class="contact-grid">
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/jakarta.jpeg" alt="Jakarta Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Jakarta</h3>
-              <p class="contact-address">Menara Astra 22nd floor – Zona D, Jalan Jenderal Sudirman Kav. 5-6 Kel. Karet Tengsin, Kec. Tanah Abang</p>
-              <a class="contact-phone" href="tel:+622186656809">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +62 21 8665 6809 / 8665 6810
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/lokasi pabrik.jpeg" alt="Mill Site" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Mill Site</h3>
-              <p class="contact-address">Desa Banuayu, Kec. Empat Petulai Dangku, Kab. Muara Enim, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62713324150">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (713) 324150 – 324160
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/palembang.jpeg" alt="Palembang Office" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Palembang</h3>
-              <p class="contact-address">Ruko Blok I/29, Komplek PTC Mall. Jl. R. Soekamto Palembang 30114, Sumatera Selatan</p>
-              <a class="contact-phone" href="tel:+62711382409">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (711) 382409
-              </a>
-            </div>
-          </div>
-
-          <div class="contact-card anim-item">
-            <div class="contact-image">
-              <img src="/images/tarahan.jpeg" alt="Tarahan Port" />
-            </div>
-            <div class="contact-body">
-              <h3 class="contact-city">Tarahan</h3>
-              <p class="contact-address">Jl. Soekarno Hatta Km. 14, Batu Serampok Kel. Srengsem Kec. Panjang, Bandar Lampung</p>
-              <a class="contact-phone" href="tel:+62721342311">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (62) (721) 34231, 31318
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-info-section">
-      <div class="footer-info-container">
-        <div class="footer-info-grid">
-
-          <div class="footer-info-col anim-item">
-            <p class="footer-about-text">
-              PT. Tanjungenim Lestari Pulp and Paper (PT. TEL), is one of the most exciting pulp mills in Indonesia today and the only pulp mill in the world to produce high-quality, bleached-hardwood Kraft pulp with 100 percent plantation grown Acacia mangium and Eucalyptus Pellita trees.
-            </p>
-          </div>
-
-          <div class="footer-info-col footer-logos-col anim-item">
-            <img src="/images/logosatu.jpeg" alt="Yayasan Pendidikan Tanjungenim Lestari - SMP, SD, PGTK Lematang Lestari" class="footer-logo-combined" />
-          </div>
-
-          <div class="footer-info-col footer-contact-col anim-item">
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Kab. Muara Enim, Sumatera Selatan.</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>(+62) 713-324-150</span>
-            </div>
-            <div class="footer-contact-row">
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
-              <span>Mon-Fri: 8:00 – 17:00</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-left-content"></div>
-        <div class="footer-copyright">
-          <p>Copyright 2026 PT TELPP. All right reserved.</p>
-        </div>
-      </div>
-    </footer>
+    <FooterGlobal />
 
 </template>
 
 <script setup>
 import PageHero from '../../components/PageHero.vue'
+import OfficeCards from '@/components/OfficeCards.vue'
+import SafeHtml from '@/components/SafeHtml.vue'
+import FooterGlobal from '@/components/FooterGlobal.vue'
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import api from '../../services/api'
 
 const activeSlide = ref(0)
 let sliderTimer = null
 
-const commitments = [
+const description = ref(`<p>People development is carried out in order to prepare the best talent to be able to show the best performance and to achieve the business targets they carry. Talking about business is not only about running but also how they manage the business even more and sustain it in the future.</p><p>PT Tanjungenim Lestari Pulp and Paper are committed to developing competent, motivated and integrated information systems to achieve a competitive organization. The commitment is realized in several activities and achievements as follows:</p>`)
+
+const commitments = ref([
   {
     title: 'Skills-Based Leadership Coaching',
     desc: 'Achieve a high performing organization by developing skills-based Coaching for leadership styles through a comprehensive Supervisory / Management / Leadership Program.'
@@ -287,18 +177,41 @@ const commitments = [
     title: 'Rules, Competencies & Knowledge',
     desc: 'Meet the rules and competencies with good knowledge and skills to maintain professional standards throughout the company.'
   },
-]
+])
 
-const slides = [
+const slides = ref([
   { url: '/images/Training-First-Aid.jpg', caption: 'First Aid Training Session' },
   { url: '/images/Management-Safety-Patrol.jpg', caption: 'Safety Patrol Management' },
   { url: '/images/Industrial-Hygiene.jpg', caption: 'Team Safety Workshop' },
-  { url: '/images/people1.jpeg', caption: 'Industrial Hygiene Program' },
-  { url: '/images/people2.jpeg', caption: 'People Development Initiative' },
-]
+  { image_url: '/images/people1.jpeg', caption: 'Industrial Hygiene Program' },
+  { image_url: '/images/people2.jpeg', caption: 'People Development Initiative' },
+])
 
-const next = () => { activeSlide.value = (activeSlide.value + 1) % slides.length }
-const prev = () => { activeSlide.value = (activeSlide.value - 1 + slides.length) % slides.length }
+const getImageUrl = (path) => {
+  if (!path) {return ''}
+  if (path.startsWith('http') || path.startsWith('/images/')) {return path}
+  if (path.startsWith('/uploads/')) {return (import.meta.env.VITE_BASE_URL || 'http://localhost:8080') + path}
+  if (path.startsWith('uploads/')) {return (import.meta.env.VITE_BASE_URL || 'http://localhost:8080') + '/' + path}
+  return path
+}
+
+const fetchPeopleDevelopment = async () => {
+  try {
+    const [pageRes, pillarRes, sliderRes] = await Promise.all([
+      api.get('/people-development-page'),
+      api.get('/people-development-pillars'),
+      api.get('/people-development-sliders'),
+    ])
+    description.value = pageRes.data?.data?.description || description.value
+    commitments.value = pillarRes.data?.data || commitments.value
+    slides.value = (sliderRes.data?.data || slides.value).map(slide => ({ ...slide, url: getImageUrl(slide.image_url || slide.url) }))
+  } catch (e) {
+    console.error('Gagal memuat people development:', e)
+  }
+}
+
+const next = () => { if (!slides.value.length) {return}; activeSlide.value = (activeSlide.value + 1) % slides.value.length }
+const prev = () => { if (!slides.value.length) {return}; activeSlide.value = (activeSlide.value - 1 + slides.value.length) % slides.value.length }
 const startSlider = () => { sliderTimer = setInterval(next, 5000) }
 const stopSlider = () => { clearInterval(sliderTimer) }
 const manualNav = (fn) => { stopSlider(); fn(); startSlider() }
@@ -307,6 +220,7 @@ const manualNav = (fn) => { stopSlider(); fn(); startSlider() }
 let observer = null
 
 onMounted(async () => {
+  await fetchPeopleDevelopment()
   await nextTick()
   initObserver()
   startSlider()

@@ -1,57 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-100 flex">
 
-    <!-- ─── Sidebar ─── -->
-    <aside class="w-64 bg-gray-950 text-white flex flex-col fixed h-full z-40">
-      <div class="p-6 border-b border-gray-800">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center font-black text-sm">T</div>
-          <div>
-            <p class="font-black text-sm">TELPP</p>
-            <p class="text-xs text-gray-500">Management Profile</p>
-          </div>
-        </div>
-      </div>
-      <nav class="flex-1 p-4 space-y-1">
-        <p class="text-xs text-gray-500 font-semibold tracking-widest mb-2 mt-2 px-2">OVERVIEW</p>
-        <RouterLink to="/admin/dashboard"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📊 Dashboard
-        </RouterLink>
-        <p class="text-xs text-gray-500 font-semibold tracking-widest mb-2 mt-4 px-2">CONTENT ENGINE</p>
-        <RouterLink to="/admin/news"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📰 Corporate News
-        </RouterLink>
-        <RouterLink to="/admin/product-page"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📦 Product
-        </RouterLink>
-        <RouterLink to="/admin/about"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          🏢 About Section
-        </RouterLink>
-        <RouterLink to="/admin/community"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          🌱 Community
-        </RouterLink>
-        <RouterLink to="/admin/team-members"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          👥 Our Team
-        </RouterLink>
-        <RouterLink to="/admin/our-company"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium">
-          🏛️ Our Company
-        </RouterLink>
-        <RouterLink to="/admin/menus"
-          class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 transition">
-          📋 Menu
-        </RouterLink>
-      </nav>
-      <div class="p-4 border-t border-gray-800">
-        <button @click="logout" class="text-sm text-gray-400 hover:text-white transition px-2">→ Logout</button>
-      </div>
-    </aside>
+    <AdminSidebar active="company" />
 
     <!-- ─── Main Content ─── -->
     <main class="flex-1 ml-64 p-10">
@@ -93,30 +43,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi (Hero)</label>
             <RichTextEditor v-model="profile.content" placeholder="Deskripsi perusahaan yang tampil di hero section..." />
           </div>
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Background Hero</label>
-              <div class="flex items-center gap-4">
-                <div v-if="profile.hero_image" class="w-28 h-20 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shrink-0 relative group">
-                  <img :src="getImageUrl(profile.hero_image)" class="w-full h-full object-cover" />
-                  <button @click="profile.hero_image = ''" type="button"
-                    class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-red-600">×</button>
-                </div>
-                <div class="flex-1">
-                  <input type="file" accept="image/*" @change="onHeroImageChange" ref="heroInput" class="hidden" />
-                  <div class="flex gap-2">
-                    <button @click="$refs.heroInput.click()"
-                      class="flex-1 border border-dashed border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-500 hover:border-green-500 hover:text-green-600 transition text-left">
-                      {{ uploading.hero ? 'Mengupload...' : 'Pilih gambar hero' }}
-                    </button>
-                    <button v-if="profile.hero_image" @click="profile.hero_image = ''" type="button"
-                      class="px-3 py-3 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition shrink-0">Hapus</button>
-                  </div>
-                  <p class="text-xs text-gray-400 mt-1">JPG, PNG. Maks 5MB. Jangan lupa klik "Simpan Profile" setelah mengganti.</p>
-                </div>
-              </div>
-            </div>
-            <div>
+          <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Background Creed</label>
               <div class="flex items-center gap-4">
                 <div v-if="profile.creed_bg_image" class="w-28 h-20 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shrink-0 relative group">
@@ -138,7 +65,6 @@
                 </div>
               </div>
             </div>
-          </div>
           <div class="flex justify-end pt-2">
             <button @click="saveProfile"
               class="bg-green-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-green-700 transition flex items-center gap-2">
@@ -354,6 +280,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '@/services/api'
 import RichTextEditor from '../../components/RichTextEditor.vue'
 
@@ -363,11 +290,10 @@ const router = useRouter()
 const loading = ref(false)
 const alert = ref({ show: false, type: 'success', message: '' })
 
-const uploading = ref({ hero: false, creedBg: false })
-const heroInput = ref(null)
+const uploading = ref({ creedBg: false })
 const creedBgInput = ref(null)
 
-const profile = ref({ title: '', content: '', hero_image: '', creed_bg_image: '' })
+const profile = ref({ title: '', content: '', creed_bg_image: '' })
 const creeds = ref([])
 const documents = ref([])
 
@@ -409,7 +335,6 @@ async function fetchProfile() {
       profile.value = {
         title: data.title || '',
         content: data.content || '',
-        hero_image: data.hero_image || '',
         creed_bg_image: data.creed_bg_image || '',
       }
     }
@@ -425,7 +350,6 @@ async function saveProfile() {
       profile.value = {
         title: data.title || '',
         content: data.content || '',
-        hero_image: data.hero_image || '',
         creed_bg_image: data.creed_bg_image || '',
       }
     }
@@ -438,26 +362,9 @@ async function saveProfile() {
 function getImageUrl(path) {
   if (!path) { return '' }
   if (path.startsWith('http')) { return path }
-  return BASE_URL + '/' + path.replace(/^\//, '')
-}
-
-async function onHeroImageChange(e) {
-  const file = e.target.files?.[0]
-  if (!file) { return }
-  uploading.value.hero = true
-  try {
-    const fd = new FormData()
-    fd.append('image', file)
-    const res = await api.post('/upload', fd, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    profile.value.hero_image = 'uploads/' + (res.data?.filename || '')
-    showAlert('success', 'Gambar hero berhasil diupload!')
-  } catch (_e) {
-    showAlert('error', 'Gagal upload gambar hero')
-  } finally {
-    uploading.value.hero = false
-  }
+  if (path.startsWith('/uploads/')) { return BASE_URL + path }
+  if (path.startsWith('uploads/')) { return BASE_URL + '/' + path }
+  return path
 }
 
 async function onCreedBgImageChange(e) {
@@ -585,9 +492,4 @@ async function deleteDocument(id) {
   }
 }
 
-function logout() {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  router.push('/admin/login')
-}
 </script>
