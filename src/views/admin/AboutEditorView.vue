@@ -98,14 +98,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
 import SafeHtml from '@/components/SafeHtml.vue'
 import RichTextEditor from '../../components/RichTextEditor.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 const loading = ref(true)
 const saving = ref(false)
 const uploading = ref(false)
@@ -177,7 +175,6 @@ const save = async () => {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchData()
 })
 </script>

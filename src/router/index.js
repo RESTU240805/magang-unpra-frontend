@@ -80,22 +80,10 @@ const router = createRouter({
 
 export default router
 
-function isTokenValid(token) {
-  if (!token) { return false }
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    return payload.exp * 1000 > Date.now()
-  } catch (_e) {
-    return false
-  }
-}
-
 router.beforeEach((to, from, next) => {
   if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
-    const token = localStorage.getItem('token')
-    if (!token || !isTokenValid(token)) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+    const user = sessionStorage.getItem('user')
+    if (!user) {
       next('/admin/login')
       return
     }

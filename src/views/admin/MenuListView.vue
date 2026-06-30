@@ -162,11 +162,9 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '../../services/api'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 
-const router = useRouter()
 const menus = ref([])
 const loading = ref(true)
 const submitting = ref(false)
@@ -307,7 +305,6 @@ const doDelete = async () => {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchMenus()
 })
 </script>

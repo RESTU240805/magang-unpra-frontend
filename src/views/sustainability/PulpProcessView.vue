@@ -61,7 +61,7 @@
         Pulp Process <span class="text-green-600">Flow</span>
       </h2>
       <div class="anim-item bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-        <img src="/pulp proces/all_process-2.jpg" alt="Pulp Process Flow Diagram"
+        <img :src="'/pulp-process/all_process-2.jpg'" alt="Pulp Process Flow Diagram"
           class="w-full h-auto" />
       </div>
     </div>
@@ -105,7 +105,7 @@
   <!-- Warehouse Photo -->
   <section class="py-12 bg-gray-50">
     <div class="anim-item overflow-hidden shadow-lg">
-      <img src="/pulp proces/IMG_6725.jpg" alt="Finished Pulp Bales Warehouse"
+      <img :src="'/pulp-process/IMG_6725.jpg'" alt="Finished Pulp Bales Warehouse"
         class="w-full h-[500px] object-cover" />
     </div>
   </section>

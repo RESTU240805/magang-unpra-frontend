@@ -111,7 +111,7 @@ import { ref, onMounted } from 'vue'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 const alert = ref({ show: false, type: 'success', message: '' })
 const showAlert = (type, message) => { alert.value = { show: true, type, message }; setTimeout(() => { alert.value.show = false }, 3000) }
 

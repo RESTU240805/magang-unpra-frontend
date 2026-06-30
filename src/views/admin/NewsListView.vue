@@ -322,12 +322,10 @@
 
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '../../services/api'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 // ─── State ───────────────────────────────────────────────────
 const newsList   = ref([])
@@ -490,7 +488,17 @@ const insertContentImage = async (e) => {
   contentUploading.value = true
   try {
     const url = await uploadSingleImage(file)
-    document.execCommand('insertHTML', false, `<img src="${url}" class="max-w-full rounded-lg my-2" /><br/>`)
+    const sel = window.getSelection()
+    if (!sel?.rangeCount) { return }
+    const range = sel.getRangeAt(0)
+    const img = document.createElement('img')
+    img.src = url
+    img.className = 'max-w-full rounded-lg my-2'
+    range.insertNode(img)
+    const br = document.createElement('br')
+    range.collapse(false)
+    range.insertNode(br)
+    range.collapse(false)
     onContentInput()
   } catch {
     formError.value = 'Gagal upload gambar'
@@ -584,8 +592,6 @@ const doDelete = async () => {
 }
 
 onMounted(() => {
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
   fetchNews()
 })
 </script>

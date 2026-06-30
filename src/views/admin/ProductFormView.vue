@@ -183,9 +183,6 @@ const form = ref({ name: '', summary: '', description: '', category: '', tags: '
 const imageList = ref([])
 
 onMounted(async () => {
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
-
   if (isEdit.value) {
     const res = await api.get(`/products/${route.params.id}`)
     const data = res.data.data

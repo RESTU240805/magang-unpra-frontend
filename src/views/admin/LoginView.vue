@@ -80,8 +80,7 @@ const handleLogin = async () => {
   loading.value = true
   try {
     const res = await api.post('/login', form.value)
-    localStorage.setItem('token', res.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.user))
+    sessionStorage.setItem('user', JSON.stringify(res.data.user))
     router.push('/admin/dashboard')
   } catch (_err) {
     error.value = 'Email atau password salah'

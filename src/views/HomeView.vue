@@ -263,7 +263,7 @@ import SafeHtml from '../components/SafeHtml.vue'
 import OfficeCards from '@/components/OfficeCards.vue'
 import FooterGlobal from '@/components/FooterGlobal.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 const fallbackImg = 'https://placehold.co/600x400/e8e8e8/999?text=News'
 const latestNews = ref([])
 const communityCards = ref([])

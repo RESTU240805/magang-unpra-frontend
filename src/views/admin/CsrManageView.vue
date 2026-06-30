@@ -318,11 +318,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
 
-const router = useRouter()
 
 // ─── Alert ────────────────────────────────────────────────────
 const alert = ref({ show: false, type: 'success', message: '' })
@@ -465,7 +463,7 @@ const reportFileUploading = ref(false)
 const getReportFileUrl = (path) => {
   if (!path) { return '' }
   if (path.startsWith('http')) { return path }
-  const base = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+  const base = import.meta.env.VITE_BASE_URL || ''
   return `${base}/${path.replace(/^\//, '')}`
 }
 
@@ -571,7 +569,6 @@ const doReportDelete = async () => {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchContent()
   fetchStrategies()
   fetchReports()

@@ -207,11 +207,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
 
-const router = useRouter()
 const user = ref({ name: 'Administrator', email: '' })
 const newsCount = ref(0)
 const productCount = ref(0)
@@ -224,11 +223,8 @@ const currentDay = days[now.getDay()]
 const currentDate = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
 
 onMounted(async () => {
-  const stored = localStorage.getItem('user')
+  const stored = sessionStorage.getItem('user')
   if (stored) { user.value = JSON.parse(stored) }
-
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
 
   try {
     const [newsRes, productRes, slideRes, teamRes] = await Promise.allSettled([

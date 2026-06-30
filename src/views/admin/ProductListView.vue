@@ -255,12 +255,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '../../services/api'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const products       = ref([])
 const loading        = ref(true)
@@ -388,7 +386,6 @@ const doDelete = async () => {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchProducts()
 })
 </script>

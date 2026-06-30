@@ -303,7 +303,7 @@ const tabs = ref([
 const getImageUrl = (path) => {
   if (!path) {return ''}
   if (path.startsWith('http')) {return path}
-  return `${import.meta.env.VITE_BASE_URL || 'http://localhost:8080'}/${path.replace(/^\//, '')}`
+  return `${import.meta.env.VITE_BASE_URL || ''}/${path.replace(/^\//, '')}`
 }
 
 const fetchCommunityCards = async () => {

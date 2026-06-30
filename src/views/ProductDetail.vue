@@ -84,7 +84,7 @@ import SafeHtml from '../components/SafeHtml.vue'
 import FooterGlobal from '@/components/FooterGlobal.vue'
 
 const route = useRoute()
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const product = ref({})
 const loading = ref(true)

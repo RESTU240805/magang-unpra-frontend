@@ -166,12 +166,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '../../services/api'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 const loading = ref(true)
 const saving = ref(false)
 const uploadingIcon = ref(false)
@@ -316,7 +314,6 @@ const deleteCard = async (id) => {
 }
 
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchCards()
 })
 </script>

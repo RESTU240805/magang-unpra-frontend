@@ -85,7 +85,7 @@ import SafeHtml from '../components/SafeHtml.vue'
 import OfficeCards from '@/components/OfficeCards.vue'
 import FooterGlobal from '@/components/FooterGlobal.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const pageDescription = ref('')
 const loading  = ref(true)

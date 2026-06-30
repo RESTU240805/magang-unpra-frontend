@@ -279,13 +279,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '@/services/api'
 import RichTextEditor from '../../components/RichTextEditor.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const loading = ref(false)
 const alert = ref({ show: false, type: 'success', message: '' })
@@ -314,8 +312,6 @@ const docForm = ref({ id: null, title: '', category: '', doc_date: '', descripti
 const selectedFile = ref(null)
 
 onMounted(() => {
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
   fetchProfile()
   fetchCreeds()
   fetchDocuments()

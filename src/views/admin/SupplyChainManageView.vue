@@ -401,11 +401,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '@/services/api'
 
-const router = useRouter()
 
 // ─── Alert ────────────────────────────────────────────────────
 const alert = ref({ show: false, type: 'success', message: '' })
@@ -592,14 +590,14 @@ const fetchPolicies = async () => {
 }
 
 const serializeJsonArray = (val) => {
-  if (!val) return ''
-  if (Array.isArray(val)) return JSON.stringify(val, null, 2)
+  if (!val) {return ''}
+  if (Array.isArray(val)) {return JSON.stringify(val, null, 2)}
   return val
 }
 
 const parseJsonArray = (val) => {
-  if (!val) return []
-  if (Array.isArray(val)) return val
+  if (!val) {return []}
+  if (Array.isArray(val)) {return val}
   try {
     const parsed = JSON.parse(val)
     return Array.isArray(parsed) ? parsed : []
@@ -635,13 +633,13 @@ const submitPolicyForm = async () => {
   let pointsParsed, proceduresParsed
   try {
     pointsParsed = policyForm.value.points.trim() ? JSON.parse(policyForm.value.points) : []
-    if (!Array.isArray(pointsParsed)) throw new Error('points harus array')
+    if (!Array.isArray(pointsParsed)) {throw new Error('points harus array')}
   } catch {
     policyFormError.value = 'Format JSON points tidak valid. Gunakan array of strings.'; return
   }
   try {
     proceduresParsed = policyForm.value.procedures.trim() ? JSON.parse(policyForm.value.procedures) : []
-    if (!Array.isArray(proceduresParsed)) throw new Error('procedures harus array')
+    if (!Array.isArray(proceduresParsed)) {throw new Error('procedures harus array')}
   } catch {
     policyFormError.value = 'Format JSON procedures tidak valid. Gunakan array of strings.'; return
   }
@@ -681,7 +679,6 @@ const doPolicyDelete = async () => {
 
 // ─── Lifecycle ────────────────────────────────────────────────
 onMounted(() => {
-  if (!localStorage.getItem('token')) { router.push('/admin/login'); return }
   fetchStrategies()
   fetchSustItems()
   fetchPolicies()

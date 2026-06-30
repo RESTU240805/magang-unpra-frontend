@@ -119,7 +119,7 @@ import PageHero from '../components/PageHero.vue'
 import FooterGlobal from '@/components/FooterGlobal.vue'
 import OfficeCards from '@/components/OfficeCards.vue'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 const members = ref([])
 const loading = ref(true)
 const showDetail = ref(false)

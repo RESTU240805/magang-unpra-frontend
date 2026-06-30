@@ -65,7 +65,7 @@ import PageHero from '../components/PageHero.vue'
 import FooterGlobal from '@/components/FooterGlobal.vue'
 import api from '@/services/api'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const contactInfo = ref({
   email: '',
@@ -113,10 +113,10 @@ async function fetchData() {
 }
 
 function getImageUrl(path) {
-  if (!path) return '/images/jakarta.jpeg'
-  if (path.startsWith('http')) return path
-  if (path.startsWith('/uploads/')) return BASE_URL + path
-  if (path.startsWith('uploads/')) return BASE_URL + '/' + path
+  if (!path) {return '/images/jakarta.jpeg'}
+  if (path.startsWith('http')) {return path}
+  if (path.startsWith('/uploads/')) {return BASE_URL + path}
+  if (path.startsWith('uploads/')) {return BASE_URL + '/' + path}
   return path
 }
 

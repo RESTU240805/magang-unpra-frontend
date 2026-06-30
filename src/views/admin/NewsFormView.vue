@@ -146,9 +146,6 @@ const form = ref({
 })
 
 onMounted(async () => {
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
-
   if (isEdit.value) {
     const res = await api.get(`/news/${route.params.id}`)
     const data = res.data.data

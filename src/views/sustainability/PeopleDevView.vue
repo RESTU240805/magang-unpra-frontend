@@ -190,8 +190,8 @@ const slides = ref([
 const getImageUrl = (path) => {
   if (!path) {return ''}
   if (path.startsWith('http') || path.startsWith('/images/')) {return path}
-  if (path.startsWith('/uploads/')) {return (import.meta.env.VITE_BASE_URL || 'http://localhost:8080') + path}
-  if (path.startsWith('uploads/')) {return (import.meta.env.VITE_BASE_URL || 'http://localhost:8080') + '/' + path}
+  if (path.startsWith('/uploads/')) {return (import.meta.env.VITE_BASE_URL || '') + path}
+  if (path.startsWith('uploads/')) {return (import.meta.env.VITE_BASE_URL || '') + '/' + path}
   return path
 }
 

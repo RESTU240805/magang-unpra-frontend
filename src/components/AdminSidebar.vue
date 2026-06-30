@@ -114,14 +114,13 @@ const router = useRouter()
 
 const user = computed(() => {
   try {
-    const raw = localStorage.getItem('user')
+    const raw = sessionStorage.getItem('user')
     return raw ? JSON.parse(raw) : null
   } catch { return null }
 })
 
 const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
+  sessionStorage.removeItem('user')
   router.push('/admin/login')
 }
 </script>

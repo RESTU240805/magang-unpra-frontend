@@ -206,12 +206,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import api from '@/services/api'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080'
-const router = useRouter()
+const BASE_URL = import.meta.env.VITE_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
 const alert = ref({ show: false, type: 'success', message: '' })
 
@@ -244,8 +242,6 @@ const officeForm = ref({
 const selectedOfficeImage = ref(null)
 
 onMounted(() => {
-  const token = localStorage.getItem('token')
-  if (!token) { router.push('/admin/login'); return }
   fetchContactInfo()
   fetchOffices()
 })
@@ -256,10 +252,10 @@ function showAlert(type, message) {
 }
 
 function getImageUrl(path) {
-  if (!path) return ''
-  if (path.startsWith('http')) return path
-  if (path.startsWith('/uploads/')) return BASE_URL + path
-  if (path.startsWith('uploads/')) return BASE_URL + '/' + path
+  if (!path) {return ''}
+  if (path.startsWith('http')) {return path}
+  if (path.startsWith('/uploads/')) {return BASE_URL + path}
+  if (path.startsWith('uploads/')) {return BASE_URL + '/' + path}
   return path
 }
 
@@ -304,7 +300,7 @@ async function saveContactInfo() {
 
 async function onHeroImageChange(e) {
   const file = e.target.files?.[0]
-  if (!file) return
+  if (!file) {return}
   uploading.value = true
   try {
     const fd = new FormData()
@@ -384,7 +380,7 @@ async function saveOffice() {
   }
 }
 async function deleteOffice(id) {
-  if (!confirm('Hapus office ini?')) return
+  if (!confirm('Hapus office ini?')) {return}
   try {
     await api.delete(`/admin/contact-offices/${id}`)
     await fetchOffices()
